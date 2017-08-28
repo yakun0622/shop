@@ -1,0 +1,12 @@
+/*.exe
+/*.exe~
+/lastupdate.tmp
+/debug
+/.vscode
+/cb
+.idea/
+/routers/commentsRouter_controllers.go
+/routers/commentsRouter_github_com_sungoo_cb_controllers.go
+/routers/commentsRouter_github_com_sungoo_cb_controllers_store.go
+/vendor
+/logs/

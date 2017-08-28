@@ -1,0 +1,100 @@
+{
+	"ImportPath": "github.com/yakun0622/shop",
+	"GoVersion": "go1.6",
+	"GodepVersion": "v74",
+	"Deps": [
+		{
+			"ImportPath": "github.com/astaxie/beego",
+			"Comment": "v1.6.1-5-g88c5dfa",
+			"Rev": "88c5dfa6ead42e624c2e7d9e04eab6cb2d07412a"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/cache",
+			"Comment": "v1.6.1-5-g88c5dfa",
+			"Rev": "88c5dfa6ead42e624c2e7d9e04eab6cb2d07412a"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/cache/redis",
+			"Comment": "v1.6.1-5-g88c5dfa",
+			"Rev": "88c5dfa6ead42e624c2e7d9e04eab6cb2d07412a"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/config",
+			"Comment": "v1.6.1-5-g88c5dfa",
+			"Rev": "88c5dfa6ead42e624c2e7d9e04eab6cb2d07412a"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/context",
+			"Comment": "v1.6.1-5-g88c5dfa",
+			"Rev": "88c5dfa6ead42e624c2e7d9e04eab6cb2d07412a"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/grace",
+			"Comment": "v1.6.1-5-g88c5dfa",
+			"Rev": "88c5dfa6ead42e624c2e7d9e04eab6cb2d07412a"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/logs",
+			"Comment": "v1.6.1-5-g88c5dfa",
+			"Rev": "88c5dfa6ead42e624c2e7d9e04eab6cb2d07412a"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/orm",
+			"Comment": "v1.6.1-5-g88c5dfa",
+			"Rev": "88c5dfa6ead42e624c2e7d9e04eab6cb2d07412a"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/plugins/cors",
+			"Comment": "v1.6.1-5-g88c5dfa",
+			"Rev": "88c5dfa6ead42e624c2e7d9e04eab6cb2d07412a"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/session",
+			"Comment": "v1.6.1-5-g88c5dfa",
+			"Rev": "88c5dfa6ead42e624c2e7d9e04eab6cb2d07412a"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/session/redis",
+			"Comment": "v1.6.1-5-g88c5dfa",
+			"Rev": "88c5dfa6ead42e624c2e7d9e04eab6cb2d07412a"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/swagger",
+			"Comment": "v1.6.1-5-g88c5dfa",
+			"Rev": "88c5dfa6ead42e624c2e7d9e04eab6cb2d07412a"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/toolbox",
+			"Comment": "v1.6.1-5-g88c5dfa",
+			"Rev": "88c5dfa6ead42e624c2e7d9e04eab6cb2d07412a"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/utils",
+			"Comment": "v1.6.1-5-g88c5dfa",
+			"Rev": "88c5dfa6ead42e624c2e7d9e04eab6cb2d07412a"
+		},
+		{
+			"ImportPath": "github.com/dchest/captcha",
+			"Comment": "weekly.2012-03-04-18-g9e95214",
+			"Rev": "9e952142169c3cd6268c6482a3a61c121536aca2"
+		},
+		{
+			"ImportPath": "github.com/dgrijalva/jwt-go",
+			"Comment": "v3.0.0-4-g01aeca5",
+			"Rev": "01aeca54ebda6e0fbfafd0a524d234159c05ec20"
+		},
+		{
+			"ImportPath": "github.com/garyburd/redigo/internal",
+			"Rev": "3e4727f0ef5938d3a846cdb57e560dba4419e854"
+		},
+		{
+			"ImportPath": "github.com/garyburd/redigo/redis",
+			"Rev": "3e4727f0ef5938d3a846cdb57e560dba4419e854"
+		},
+		{
+			"ImportPath": "github.com/go-sql-driver/mysql",
+			"Comment": "v1.2-194-g7ebe0a5",
+			"Rev": "7ebe0a500653eeb1859664bed5e48dec1e164e73"
+		}
+	]
+}

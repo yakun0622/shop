@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  cb:
+    image: cb:debug
+    build:
+      context: .
+      dockerfile: Dockerfile.debug
+    ports:
+      - "8080:8080"

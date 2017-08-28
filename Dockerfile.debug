@@ -1,0 +1,10 @@
+FROM golang:1.6.3
+MAINTAINER sunlinked
+
+RUN go get github.com/beego/bee
+
+#代码拷贝
+ADD . $GOPATH/src/github.com/yakun0622/shop/
+WORKDIR $GOPATH/src/github.com/yakun0622/shop/
+
+CMD ["bee","run","-gendoc=true"]
