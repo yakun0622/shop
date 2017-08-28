@@ -26,7 +26,7 @@ type SunStoreWatermark struct {
 }
 
 func (t *SunStoreWatermark) TableName() string {
-	return "sun_store_watermark"
+	return "shop_store_watermark"
 }
 
 func init() {

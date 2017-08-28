@@ -22,7 +22,7 @@ type SunMemberMsgTpl struct {
 }
 
 func (t *SunMemberMsgTpl) TableName() string {
-	return "sun_member_msg_tpl"
+	return "shop_member_msg_tpl"
 }
 
 func init() {

@@ -15,7 +15,7 @@ type SunOffpayArea struct {
 }
 
 func (t *SunOffpayArea) TableName() string {
-	return "sun_offpay_area"
+	return "shop_offpay_area"
 }
 
 func init() {

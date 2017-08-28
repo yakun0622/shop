@@ -26,10 +26,10 @@ type SunArea struct {
 	CacheData interface{} `orm:"-"`
 }
 
-const AreaTableName = "sun_area"
+const AreaTableName = "shop_area"
 
 func (t *SunArea) TableName() string {
-	return "sun_area"
+	return "shop_area"
 }
 
 func init() {

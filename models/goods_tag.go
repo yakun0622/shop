@@ -7,11 +7,11 @@ type GoodsTag struct {
 	TagName string `orm:"column(tag_name)"`
 }
 
-const GoodsTagTableName = "sun_goods_tag"
+const GoodsTagTableName = "shop_goods_tag"
 
 func GetTagsByGoodsId(goodsIds string, groupIds string) (l []GoodsTag, err error) {
 	o, q := GetQueryBuilder()
-	q = q.Select("*").From("sun_goods_tag as gt").InnerJoin("sun_tag as t").
+	q = q.Select("*").From("shop_goods_tag as gt").InnerJoin("shop_tag as t").
 		On("gt.tag_id = t.tag_id").Where("gt.goods_id in (" + goodsIds + ")")
 	if groupIds != "" {
 		q = q.And("t.group_id in (" + groupIds + ")")
@@ -27,7 +27,7 @@ func GetTagsByGoodsId(goodsIds string, groupIds string) (l []GoodsTag, err error
 
 func SaveGoodsTags(goodsAndTags []string) error {
 	o := Orm()
-	p, prepareErr := o.Raw("INSERT INTO sun_goods_tag (goods_id, tag_id) value (?, ?)").Prepare()
+	p, prepareErr := o.Raw("INSERT INTO shop_goods_tag (goods_id, tag_id) value (?, ?)").Prepare()
 	if prepareErr == nil {
 		var goodsId string
 		for i, value := range goodsAndTags {
@@ -50,7 +50,7 @@ func SaveGoodsTags(goodsAndTags []string) error {
 func RemoveGoodsTag(goodsId int, tagId int) error {
 	o:= Orm()
 
-	num, err := o.Raw("DELETE FROM sun_goods_tag WHERE goods_id=? AND tag_id=?", goodsId, tagId).Exec()
+	num, err := o.Raw("DELETE FROM shop_goods_tag WHERE goods_id=? AND tag_id=?", goodsId, tagId).Exec()
 	Display("RemoveGoodsTag", num, "goodsId", goodsId, "tagId", tagId)
 	return err
 }

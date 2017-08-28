@@ -26,7 +26,7 @@ type SunOrderGoods struct {
 	GcId         uint32  `orm:"column(gc_id)"`
 }
 
-const OrderGoodsTableName  = "sun_order_goods"
+const OrderGoodsTableName  = "shop_order_goods"
 
 func init() {
 	orm.RegisterModel(new(SunOrderGoods))

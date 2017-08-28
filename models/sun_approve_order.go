@@ -27,14 +27,14 @@ type SunApproveOrder struct {
 }
 
 func (t *SunApproveOrder) TableName() string {
-	return "sun_approve_order"
+	return "shop_approve_order"
 }
 
 func GetAllApproveOrders(roleId string, groupId string, approveState string, orderType string, orderSn string, offset int) (int, []SunApproveOrder, error) {
 	o, q := GetQueryBuilder()
 
-	q = q.Select("count(*)").From("sun_approve_order as ao").
-		InnerJoin("sun_order as o").On("ao.order_id = o.order_id").
+	q = q.Select("count(*)").From("shop_approve_order as ao").
+		InnerJoin("shop_order as o").On("ao.order_id = o.order_id").
 		Where("o.order_state!=0")
 
 	if roleId != "" {
@@ -75,15 +75,15 @@ func ApproveOrders(ids string, state int, orderIds []string, reason string, tagI
 	o := Orm()
 	o.Begin()
 	Display("approve-state", tagIds)
-	_, err := o.Raw("UPDATE sun_approve_order SET approve_order_state=?, approve_order_reason=?, approve_order_time=? WHERE approve_order_id in (" + ids + ")", state, reason, tools.GetTime()).Exec()
+	_, err := o.Raw("UPDATE shop_approve_order SET approve_order_state=?, approve_order_reason=?, approve_order_time=? WHERE approve_order_id in (" + ids + ")", state, reason, tools.GetTime()).Exec()
 	if err != nil {
 		Display("approve-state11", err)
 		o.Rollback()
 		return err
 	}
 
-	orderUpdate, _ := o.Raw("UPDATE sun_order SET order_state=?, approve_time=? WHERE order_id=?").Prepare()
-	approveInsert, _ := o.Raw("INSERT INTO sun_approve_order (order_id, role_id, group_id, tag_ids, ctime) VALUES (?, ?, ?, ?, ?)").Prepare()
+	orderUpdate, _ := o.Raw("UPDATE shop_order SET order_state=?, approve_time=? WHERE order_id=?").Prepare()
+	approveInsert, _ := o.Raw("INSERT INTO shop_approve_order (order_id, role_id, group_id, tag_ids, ctime) VALUES (?, ?, ?, ?, ?)").Prepare()
 
 	Display("approve-state22", state)
 	for i, orderId := range orderIds {
@@ -110,7 +110,7 @@ func ApproveOrders(ids string, state int, orderIds []string, reason string, tagI
 					return err
 				}
 
-				_, err = o.Raw("UPDATE sun_order SET approvers=? WHERE order_id=?", approvers, orderId).Exec()
+				_, err = o.Raw("UPDATE shop_order SET approvers=? WHERE order_id=?", approvers, orderId).Exec()
 				if err != nil {
 					Display("approve-approversUpdate", err)
 					o.Rollback()
@@ -150,14 +150,14 @@ type approveGoodsAndTags struct {
 
 func GetGoodsAndTagsByApproveOrder(orderIds string, groupId uint) (goodses []SunOrderGoods, tags [][]Tag, err error) {
 	o, q := GetQueryBuilder()
-	sql := q.Select("*").From("sun_order_goods").Where("order_id in(" + orderIds + ")").String()
+	sql := q.Select("*").From("shop_order_goods").Where("order_id in(" + orderIds + ")").String()
 
 	_, err = o.Raw(sql).QueryRows(&goodses)
 
 	tagQuery := QueryBuilder()
 	sql = tagQuery.Select("*").
-		From("sun_goods_tag as tg").
-		InnerJoin("sun_tag as t").On("tg.tag_id = t.tag_id").
+		From("shop_goods_tag as tg").
+		InnerJoin("shop_tag as t").On("tg.tag_id = t.tag_id").
 		Where("t.group_id = ?").
 		And("tg.goods_id = ?").
 		String()

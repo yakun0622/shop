@@ -21,10 +21,10 @@ type SunExpress struct {
 }
 
 func (t *SunExpress) TableName() string {
-	return "sun_express"
+	return "shop_express"
 }
 
-const ExpressTableName = "sun_express"
+const ExpressTableName = "shop_express"
 
 func init() {
 	orm.RegisterModel(new(SunExpress))

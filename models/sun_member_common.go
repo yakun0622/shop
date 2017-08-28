@@ -16,7 +16,7 @@ type SunMemberCommon struct {
 }
 
 func (t *SunMemberCommon) TableName() string {
-	return "sun_member_common"
+	return "shop_member_common"
 }
 
 func init() {

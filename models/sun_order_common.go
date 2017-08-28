@@ -36,7 +36,7 @@ type SunOrderCommon struct {
 }
 
 func (t *SunOrderCommon) TableName() string {
-	return "sun_order_common"
+	return "shop_order_common"
 }
 
 func init() {

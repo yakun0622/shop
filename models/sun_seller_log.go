@@ -22,7 +22,7 @@ type SunSellerLog struct {
 }
 
 func (t *SunSellerLog) TableName() string {
-	return "sun_seller_log"
+	return "shop_seller_log"
 }
 
 func init() {

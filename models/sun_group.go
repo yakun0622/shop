@@ -34,7 +34,7 @@ type SunGroup struct {
 }
 
 func (t *SunGroup) TableName() string {
-	return "sun_group"
+	return "shop_group"
 }
 
 func init() {
@@ -196,8 +196,8 @@ func (s *SunGroup) GetJoinGroup(memberId uint) []joinGroup {
 	var joins []joinGroup
 	sql := q.Select("*").
 		From(s.TableName() + " as g").
-		InnerJoin("sun_member_group as mg").On("g.group_id = mg.group_id").
-		InnerJoin("sun_role as r").On("mg.roleid = r.role_id").
+		InnerJoin("shop_member_group as mg").On("g.group_id = mg.group_id").
+		InnerJoin("shop_role as r").On("mg.roleid = r.role_id").
 		Where("mg.member_id=" + strconv.Itoa(int(memberId))).
 		String()
 

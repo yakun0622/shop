@@ -20,7 +20,7 @@ type SunFavorites struct {
 }
 
 func (t *SunFavorites) TableName() string {
-	return "sun_favorites"
+	return "shop_favorites"
 }
 
 func init() {
@@ -123,8 +123,8 @@ func GetAllSunFavorites(query map[string]interface{}, fields []string, sortby []
 func GetAllSunFavoritesBuyFolderId(folderId int, userId uint) (favs []SunFavorites, err error) {
 	o, q := GetQueryBuilder()
 	sql := q.Select("*").
-		From("sun_favorites as f").
-		InnerJoin("sun_goods as g").
+		From("shop_favorites as f").
+		InnerJoin("shop_goods as g").
 		On("f.goods_id = g.goods_id").
 		Where("folder_id=?").
 		And("member_id=?").String()

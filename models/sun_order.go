@@ -73,7 +73,7 @@ type SunOrder struct {
 }
 
 func (t *SunOrder) TableName() string {
-	return "sun_order"
+	return "shop_order"
 }
 
 func init() {
@@ -102,7 +102,7 @@ func GetSunOrderById(ID int) (v *SunOrder, err error) {
 func GetOrderByGroupId(groupId int, state int, offset int) (orders []SunOrder, goodses [][]SunOrderGoods, count int, err error) {
 	o, q := GetQueryBuilder()
 
-	q = q.Select("count(*)").From("sun_order").Where("order_state=?").And("group_id = ?")
+	q = q.Select("count(*)").From("shop_order").Where("order_state=?").And("group_id = ?")
 
 	err = o.Raw(q.String(), state, groupId).QueryRow(&count)
 	if err != nil {
@@ -131,7 +131,7 @@ func GetOrderByGroupId(groupId int, state int, offset int) (orders []SunOrder, g
 	var goods []SunOrderGoods
 	for _, order := range orders {
 		goodsQuery := QueryBuilder()
-		_, err = o.Raw(goodsQuery.Select("*").From("sun_order_goods").Where("order_id=?").String(), order.Id).QueryRows(&goods)
+		_, err = o.Raw(goodsQuery.Select("*").From("shop_order_goods").Where("order_id=?").String(), order.Id).QueryRows(&goods)
 		if err != nil {
 			Display("goodses", err)
 			return
@@ -145,7 +145,7 @@ func GetOrderByGroupId(groupId int, state int, offset int) (orders []SunOrder, g
 func GetGroupOrder(groupId int, memberId int, orderState string, orderType int, offset int) (orders []SunOrder, num int64, err error) {
 	o, q := GetQueryBuilder()
 
-	q.Select("*").From("sun_order").Where("group_id=?").And("order_state=?")
+	q.Select("*").From("shop_order").Where("group_id=?").And("order_state=?")
 
 	if orderType > -1 {
 		q.And("order_type=?")
@@ -183,7 +183,7 @@ func GetGroupOrder(groupId int, memberId int, orderState string, orderType int, 
 func GetOrderByStoreId(storeId int, state int, limit int, offset int) (orders []SunOrder, count int, err error) {
 	o, q := GetQueryBuilder()
 	beego.Info("order state....", state)
-	q = q.Select("count(*)").From("sun_order").Where("store_id = " + strconv.Itoa(storeId)).And("order_state != 20")
+	q = q.Select("count(*)").From("shop_order").Where("store_id = " + strconv.Itoa(storeId)).And("order_state != 20")
 	if state > -1 {
 		q.And("order_state=" + strconv.Itoa(state))
 	}
@@ -362,7 +362,7 @@ areaId int,
 					}
 					//如果roleId等于0，则审批完成
 					if roleId != 0 {
-						_, err := o.Raw("INSERT INTO sun_approve_order (order_id, role_id, group_id, tag_ids, ctime) VALUES (?, ?, ?, ?, ?)", id, roleId, groupId, tagIds[i], tools.GetTime()).Exec()
+						_, err := o.Raw("INSERT INTO shop_approve_order (order_id, role_id, group_id, tag_ids, ctime) VALUES (?, ?, ?, ?, ?)", id, roleId, groupId, tagIds[i], tools.GetTime()).Exec()
 						v.OrderState = 10
 						if err != nil {
 							o.Rollback()
@@ -526,7 +526,7 @@ type orderApprovers struct {
 
 func GetOrderApprovers(orderId int) (approverList []orderApprovers, currentApproverId string, approverIds string, err error) {
 	o, q := GetQueryBuilder()
-	sql := q.Select("approvers").From("sun_order").Where("order_id=?").String()
+	sql := q.Select("approvers").From("shop_order").Where("order_id=?").String()
 	var approvers string
 	err = o.Raw(sql, orderId).QueryRow(&approvers)
 	if err == nil && approvers != "" {
@@ -542,7 +542,7 @@ func GetOrderApprovers(orderId int) (approverList []orderApprovers, currentAppro
 		}
 		if approverIds != "" {
 			q := QueryBuilder()
-			q.Select("*").From("sun_member as m").InnerJoin("sun_member_group as mg").
+			q.Select("*").From("shop_member as m").InnerJoin("shop_member_group as mg").
 				On("m.member_id=mg.member_id").Where("mg.role_id").In(approverIds).And("mg.status=3")
 
 			_, err = o.Raw(q.String()).QueryRows(&approverList)
@@ -556,14 +556,14 @@ func GetOrderApprovers(orderId int) (approverList []orderApprovers, currentAppro
 
 func GetOrderGoodsesAndTags(orderId int, groupId int) (goodses []SunOrderGoods, tags [][]Tag, err error) {
 	o, q := GetQueryBuilder()
-	sql := q.Select("*").From("sun_order_goods").Where("order_id=?").String()
+	sql := q.Select("*").From("shop_order_goods").Where("order_id=?").String()
 
 	_, err = o.Raw(sql, orderId).QueryRows(&goodses)
 
 	tagQuery := QueryBuilder()
 	sql = tagQuery.Select("*").
-		From("sun_goods_tag as tg").
-		InnerJoin("sun_tag as t").On("tg.tag_id = t.tag_id").
+		From("shop_goods_tag as tg").
+		InnerJoin("shop_tag as t").On("tg.tag_id = t.tag_id").
 		Where("t.group_id = ?").
 		And("tg.goods_id = ?").
 		String()

@@ -20,7 +20,7 @@ type SunGoodsImages struct {
 }
 
 func (t *SunGoodsImages) TableName() string {
-	return "sun_goods_images"
+	return "shop_goods_images"
 }
 
 func init() {

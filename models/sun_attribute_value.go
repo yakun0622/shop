@@ -18,7 +18,7 @@ type SunAttributeValue struct {
 }
 
 func (t *SunAttributeValue) TableName() string {
-	return "sun_attribute_value"
+	return "shop_attribute_value"
 }
 
 func init() {

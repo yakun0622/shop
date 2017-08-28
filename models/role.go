@@ -27,7 +27,7 @@ type Role struct {
 }
 
 func (self *Role) TableName() string {
-	return "sun_role"
+	return "shop_role"
 }
 
 func init() {
@@ -126,7 +126,7 @@ func GetAllApproveRoleIdAndGroupId(groupId uint, groupParentId uint, approveLeve
 				}
 
 				o, q := GetQueryBuilder()
-				sql := q.Select("group_parent").From("sun_group").Where("group_id=?").String()
+				sql := q.Select("group_parent").From("shop_group").Where("group_id=?").String()
 				error = o.Raw(sql, groupParentId).QueryRow(&groupParentId)
 				if groupParentId == 0 {
 					break
@@ -143,10 +143,10 @@ func GetApproveRoleIdsByGroupId(groupId uint, approveLevel int, orderType int8, 
 	o, q := GetQueryBuilder()
 	var roleIds orm.ParamsList
 
-	q = q.Select("r.role_id").From("sun_role as r")
+	q = q.Select("r.role_id").From("shop_role as r")
 
 	if tagIds != "" {
-		q = q.InnerJoin("sun_tag_role as tr").
+		q = q.InnerJoin("shop_tag_role as tr").
 			On("r.role_id = tr.role_id")
 	}
 
@@ -186,7 +186,7 @@ func GetApproveRoleIdsByGroupId(groupId uint, approveLevel int, orderType int8, 
 func GetApproveRoleIdAndGroupId(orderId string) (roleId string, groupId string, newApproves string, err error) {
 	o, q := GetQueryBuilder()
 	var sql string
-	sql = q.Select("approvers").From("sun_order").Where("order_id=?").String()
+	sql = q.Select("approvers").From("shop_order").Where("order_id=?").String()
 	var approvers string
 	err = o.Raw(sql, orderId).QueryRow(&approvers)
 	Display("GetApproveRoleIdAndGroupId-order", approvers)
@@ -224,10 +224,10 @@ func GetApproveRoleIdAndGroupId(orderId string) (roleId string, groupId string, 
 //	o, q := GetQueryBuilder()
 //	var roleIds orm.ParamsList
 //
-//	q = q.Select("r.role_id").From("sun_role as r")
+//	q = q.Select("r.role_id").From("shop_role as r")
 //
 //	if tagIds != "" {
-//		q = q.InnerJoin("sun_tag_role as tr").
+//		q = q.InnerJoin("shop_tag_role as tr").
 //			On("r.role_id = tr.role_id")
 //	}
 //
@@ -261,7 +261,7 @@ func GetApproveRoleIdAndGroupId(orderId string) (roleId string, groupId string, 
 //		} else {
 //			var groupParentIds orm.ParamsList
 //			_, q := GetQueryBuilder()
-//			sql := q.Select("group_parent").From("sun_group").Where("group_id = ?").String()
+//			sql := q.Select("group_parent").From("shop_group").Where("group_id = ?").String()
 //			_, err := o.Raw(sql, groupParentId).ValuesFlat(&groupParentIds)
 //			if err != nil {
 //				return 0, 0, err

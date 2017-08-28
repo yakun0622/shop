@@ -21,7 +21,7 @@ type SunStoreSnsComment struct {
 }
 
 func (t *SunStoreSnsComment) TableName() string {
-	return "sun_store_sns_comment"
+	return "shop_store_sns_comment"
 }
 
 func init() {

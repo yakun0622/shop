@@ -20,7 +20,7 @@ type SunUpload struct {
 }
 
 func (t *SunUpload) TableName() string {
-	return "sun_upload"
+	return "shop_upload"
 }
 
 func init() {

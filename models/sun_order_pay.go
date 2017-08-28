@@ -17,7 +17,7 @@ type SunOrderPay struct {
 }
 
 func (t *SunOrderPay) TableName() string {
-	return "sun_order_pay"
+	return "shop_order_pay"
 }
 
 func init() {

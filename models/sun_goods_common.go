@@ -80,7 +80,7 @@ type SunGoodsCommon struct {
 }
 
 func (t *SunGoodsCommon) TableName() string {
-	return "sun_goods_common"
+	return "shop_goods_common"
 }
 
 func init() {

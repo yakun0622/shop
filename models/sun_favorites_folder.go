@@ -18,7 +18,7 @@ type SunFavoritesFolder struct {
 }
 
 func (t *SunFavoritesFolder) TableName() string {
-	return "sun_favorites_folder"
+	return "shop_favorites_folder"
 }
 
 func init() {
@@ -205,10 +205,10 @@ func GetAllSunFavoritesFolderByUserID(memberID uint) (ml []favoritesFolder, err 
 	o, q := GetQueryBuilder()
 
 	sql := q.Select("ff.folder_id, ff.member_id, ff.folder_name,f.fav_time, ff.folder_type, ff.created_at, f.goods_num, f.goods_id, g.gc_id, f.id, f.store_id, g.store_name, g.goods_spec, g.goods_image, g.goods_name, g.goods_price").
-		From("sun_favorites_folder as ff").
-		LeftJoin("sun_favorites as f").
+		From("shop_favorites_folder as ff").
+		LeftJoin("shop_favorites as f").
 		On("ff.folder_id=f.folder_id").
-		LeftJoin("sun_goods as g").
+		LeftJoin("shop_goods as g").
 		On("f.goods_id = g.goods_id").
 		Where("ff.member_id = ?").
 		String()

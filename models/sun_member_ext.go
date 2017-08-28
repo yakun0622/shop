@@ -28,7 +28,7 @@ type SunMemberExt struct {
 }
 
 func (t *SunMemberExt) TableName() string {
-	return "sun_member_ext"
+	return "shop_member_ext"
 }
 
 func init() {

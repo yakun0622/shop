@@ -19,7 +19,7 @@ type SunStoreGoodsClass struct {
 }
 
 func (t *SunStoreGoodsClass) TableName() string {
-	return "sun_store_goods_class"
+	return "shop_store_goods_class"
 }
 
 func init() {

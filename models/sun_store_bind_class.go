@@ -20,7 +20,7 @@ type SunStoreBindClass struct {
 }
 
 func (t *SunStoreBindClass) TableName() string {
-	return "sun_store_bind_class"
+	return "shop_store_bind_class"
 }
 
 func init() {

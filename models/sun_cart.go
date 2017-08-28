@@ -21,7 +21,7 @@ type SunCart struct {
 }
 
 func (t *SunCart) TableName() string {
-	return "sun_cart"
+	return "shop_cart"
 }
 
 func init() {

@@ -16,7 +16,7 @@ type SunStoreExtend struct {
 }
 
 func (t *SunStoreExtend) TableName() string {
-	return "sun_store_extend"
+	return "shop_store_extend"
 }
 
 func init() {

@@ -21,7 +21,7 @@ type SunArrivalNotice struct {
 }
 
 func (t *SunArrivalNotice) TableName() string {
-	return "sun_arrival_notice"
+	return "shop_arrival_notice"
 }
 
 func init() {

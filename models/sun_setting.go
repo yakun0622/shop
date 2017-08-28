@@ -15,7 +15,7 @@ type SunSetting struct {
 }
 
 func (t *SunSetting) TableName() string {
-	return "sun_setting"
+	return "shop_setting"
 }
 
 func init() {

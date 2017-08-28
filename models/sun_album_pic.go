@@ -20,7 +20,7 @@ type SunAlbumPic struct {
 }
 
 func (t *SunAlbumPic) TableName() string {
-	return "sun_album_pic"
+	return "shop_album_pic"
 }
 
 func init() {
@@ -50,12 +50,12 @@ func GetSunAlbumPicById(id int) (v *SunAlbumPic, err error) {
 // no records exist
 func GetAllSunAlbumPic( storeId uint, page int ) (albumPics []SunAlbumPic, count int, err error){
 	o, q := GetQueryBuilder()
-	q.Select("*").From("sun_album_pic").
+	q.Select("*").From("shop_album_pic").
 		Where("store_id=?").OrderBy("upload_time").Desc().
 	Limit(40).Offset((page) * 40)
 
 	countq := QueryBuilder()
-	countq.Select("count(apic_id)").From("sun_album_pic").
+	countq.Select("count(apic_id)").From("shop_album_pic").
 		Where("store_id=?")
 	_, err = o.Raw(q.String(), storeId).QueryRows(&albumPics)
 	if err!= nil {

@@ -28,7 +28,7 @@ type SunInvoice struct {
 }
 
 func (t *SunInvoice) TableName() string {
-	return "sun_invoice"
+	return "shop_invoice"
 }
 
 func init() {

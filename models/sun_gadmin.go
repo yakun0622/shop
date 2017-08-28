@@ -16,7 +16,7 @@ type SunGadmin struct {
 }
 
 func (t *SunGadmin) TableName() string {
-	return "sun_gadmin"
+	return "shop_gadmin"
 }
 
 func init() {

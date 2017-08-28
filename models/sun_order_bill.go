@@ -30,7 +30,7 @@ type SunOrderBill struct {
 }
 
 func (t *SunOrderBill) TableName() string {
-	return "sun_order_bill"
+	return "shop_order_bill"
 }
 
 func init() {

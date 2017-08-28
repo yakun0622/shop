@@ -24,7 +24,7 @@ type SunGoodsClass struct {
 }
 
 func (t *SunGoodsClass) TableName() string {
-	return "sun_goods_class"
+	return "shop_goods_class"
 }
 
 func init() {

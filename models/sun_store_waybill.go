@@ -22,7 +22,7 @@ type SunStoreWaybill struct {
 }
 
 func (t *SunStoreWaybill) TableName() string {
-	return "sun_store_waybill"
+	return "shop_store_waybill"
 }
 
 func init() {

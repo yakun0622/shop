@@ -29,7 +29,7 @@ type SunMessage struct {
 }
 
 func (t *SunMessage) TableName() string {
-	return "sun_message"
+	return "shop_message"
 }
 
 func init() {

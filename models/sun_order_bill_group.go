@@ -28,7 +28,7 @@ type SunOrderBillGroup struct {
 }
 
 func (t *SunOrderBillGroup) TableName() string {
-	return "sun_order_bill_group"
+	return "shop_order_bill_group"
 }
 
 func init() {
@@ -59,7 +59,7 @@ func GetSunOrderBillGroupByGroupId(ids []int, period_type int) (v []SunOrderBill
 		return nil, 0, errors.New("no ids")
 	}
 	o := orm.NewOrm()
-	sql := "SELECT * FROM sun_order_bill_group WHERE obg_groupid IN ("
+	sql := "SELECT * FROM shop_order_bill_group WHERE obg_groupid IN ("
 	for index := range ids {
 		if index != 0 {
 			sql += ","

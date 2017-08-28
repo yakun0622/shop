@@ -57,7 +57,7 @@ type evaluateGoodsAndMember struct {
 }
 
 func (t *SunEvaluateGoods) TableName() string {
-	return "sun_evaluate_goods"
+	return "shop_evaluate_goods"
 }
 
 func init() {
@@ -192,10 +192,10 @@ func GetSunEvaluateGoods(goodsIds string, goodsCommonId string) (v []evaluateGoo
 	o, q := GetQueryBuilder()
 
 	if goodsIds != "" {
-		evaluateSql := q.Select("*").From("sun_evaluate_goods as eg").InnerJoin("sun_member as m").On("eg.geval_frommemberid = m.member_id").Where("eg.geval_goodsid IN(?)").String()
+		evaluateSql := q.Select("*").From("shop_evaluate_goods as eg").InnerJoin("shop_member as m").On("eg.geval_frommemberid = m.member_id").Where("eg.geval_goodsid IN(?)").String()
 		_, err = o.Raw(evaluateSql, goodsIds).QueryRows(&v)
 	} else {
-		evaluateSql := q.Select("*").From("sun_evaluate_goods as eg").InnerJoin("sun_member as m, sun_goods as g").On("eg.geval_goodsid = g.goods_id and eg.geval_frommemberid = m.member_id").Where("g.goods_commonid=?").String()
+		evaluateSql := q.Select("*").From("shop_evaluate_goods as eg").InnerJoin("shop_member as m, shop_goods as g").On("eg.geval_goodsid = g.goods_id and eg.geval_frommemberid = m.member_id").Where("g.goods_commonid=?").String()
 		_, err = o.Raw(evaluateSql, goodsCommonId).QueryRows(&v)
 	}
 	return

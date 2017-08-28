@@ -61,7 +61,7 @@ type SunGoods struct {
 }
 
 func (t *SunGoods) TableName() string {
-	return "sun_goods"
+	return "shop_goods"
 }
 
 func init() {
@@ -70,11 +70,11 @@ func init() {
 
 func GetGoodsCommonAndGoodses(goodsId string, goodsCommonId string) (common SunGoodsCommon, goodses []SunGoods, err error) {
 	o, q := GetQueryBuilder()
-	goodsSql := q.Select("*").From("sun_goods").Where("goods_commonid=?").String()
+	goodsSql := q.Select("*").From("shop_goods").Where("goods_commonid=?").String()
 	commonQuery := QueryBuilder()
 
 	if goodsCommonId != "" {
-		goodsCommonSql := commonQuery.Select("*").From("sun_goods_common").Where("goods_commonid=?").String()
+		goodsCommonSql := commonQuery.Select("*").From("shop_goods_common").Where("goods_commonid=?").String()
 
 		err = o.Raw(goodsCommonSql, goodsCommonId).QueryRow(&common)
 		if err != nil {
@@ -85,8 +85,8 @@ func GetGoodsCommonAndGoodses(goodsId string, goodsCommonId string) (common SunG
 		return
 	}
 
-	goodsCommonSql := commonQuery.Select("*").From("sun_goods as g").
-		InnerJoin("sun_goods_common as gc").On("g.goods_commonid = gc.goods_commonid").
+	goodsCommonSql := commonQuery.Select("*").From("shop_goods as g").
+		InnerJoin("shop_goods_common as gc").On("g.goods_commonid = gc.goods_commonid").
 		Where("g.goods_id=?").String()
 
 	err = o.Raw(goodsCommonSql, goodsId).QueryRow(&common)
@@ -279,7 +279,7 @@ func GetAllRealtedGoodsByIDs(ids []int) (ml []interface{}, err error) {
 	}
 	o := orm.NewOrm()
 	var l []SunGoods
-	sql := "SELECT * FROM sun_goods WHERE goods_commonid IN (SELECT DISTINCT goods_commonid FROM sun_goods WHERE goods_id IN ("
+	sql := "SELECT * FROM shop_goods WHERE goods_commonid IN (SELECT DISTINCT goods_commonid FROM shop_goods WHERE goods_id IN ("
 	for index := range ids {
 		if index != 0 {
 			sql += ","
@@ -300,7 +300,7 @@ func GetAllRealtedGoodsByIDs(ids []int) (ml []interface{}, err error) {
 func UpdateGoodsStorageByID(id int, num uint) (SunGoods, error) {
 	o := orm.NewOrm()
 	var v SunGoods
-	sql := "UPDATE `sun_goods` SET `goods_storage`=`goods_storage`+? WHERE `goods_id`=?"
+	sql := "UPDATE `shop_goods` SET `goods_storage`=`goods_storage`+? WHERE `goods_id`=?"
 	res, err := o.Raw(sql, num, id).Exec()
 	if err == nil{
 		updaterow, _ := res.RowsAffected()

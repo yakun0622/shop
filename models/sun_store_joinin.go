@@ -67,7 +67,7 @@ type SunStoreJoinin struct {
 }
 
 func (t *SunStoreJoinin) TableName() string {
-	return "sun_store_joinin"
+	return "shop_store_joinin"
 }
 
 func init() {

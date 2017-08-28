@@ -20,7 +20,7 @@ type SunAdminLog struct {
 }
 
 func (t *SunAdminLog) TableName() string {
-	return "sun_admin_log"
+	return "shop_admin_log"
 }
 
 func init() {

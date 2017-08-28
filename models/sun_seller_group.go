@@ -18,7 +18,7 @@ type SunSellerGroup struct {
 }
 
 func (t *SunSellerGroup) TableName() string {
-	return "sun_seller_group"
+	return "shop_seller_group"
 }
 
 func init() {

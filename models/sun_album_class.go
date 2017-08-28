@@ -21,7 +21,7 @@ type SunAlbumClass struct {
 }
 
 func (t *SunAlbumClass) TableName() string {
-	return "sun_album_class"
+	return "shop_album_class"
 }
 
 func init() {

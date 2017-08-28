@@ -18,10 +18,10 @@ type Transport struct {
 	Extends []TransportExtend `orm:"-"`
 }
 
-const TransportTableName = "sun_transport"
+const TransportTableName = "shop_transport"
 
 func (t *Transport) TableName() string {
-	return "sun_transport"
+	return "shop_transport"
 }
 
 func init() {
@@ -91,7 +91,7 @@ func DeleteSunTransport(id int) (err error) {
 func GetTransportfee(goodses string, goodsNums []int, amount float64, areaId int) (transportfee float64) {
 	o, goodsQuery := GetQueryBuilder()
 	var transportIds orm.ParamsList
-	goodsQuery.Select("transport_id").From("sun_goods").
+	goodsQuery.Select("transport_id").From("shop_goods").
 		Where("goods_id in (" + goodses + ")").OrderBy("transport_id")
 
 	_, err := o.Raw(goodsQuery.String()).ValuesFlat(&transportIds)
@@ -103,8 +103,8 @@ func GetTransportfee(goodses string, goodsNums []int, amount float64, areaId int
 
 
 	q := QueryBuilder()
-	q.Select("te.free_price").From("sun_transport as t").
-		InnerJoin("sun_transport_extend as te").On("t.id = te.transport_id").
+	q.Select("te.free_price").From("shop_transport as t").
+		InnerJoin("shop_transport_extend as te").On("t.id = te.transport_id").
 		Where("t.id=?").And("(te.area_id like '"+ areaIdStr + "' OR te.area_name='全国')").And("te.free_line > ?")
 	sql := q.String()
 

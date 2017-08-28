@@ -18,7 +18,7 @@ type Tag struct {
 }
 
 func (t *Tag) TableName() string {
-	return "sun_tag"
+	return "shop_tag"
 }
 
 func init() {
@@ -112,7 +112,7 @@ func GetGroupTags(groupIds string) (l []UserGroupTags, err error) {
 	o, q := GetQueryBuilder()
 
 	sql := q.Select("group_id, tag_id, tag_name").
-		From("sun_tag").
+		From("shop_tag").
 		Where("group_id IN (" + groupIds + ")").
 		And("tag_lock = 1").String()
 
@@ -124,8 +124,8 @@ func GetShareGroupTags(groupIds string) (l []UserGroupTags, err error) {
 	o, q := GetQueryBuilder()
 
 	sql := q.Select("tg.group_id, tg.tag_id, t.tag_name").
-		From("sun_tag_group as tg").
-		InnerJoin("sun_tag as t").
+		From("shop_tag_group as tg").
+		InnerJoin("shop_tag as t").
 		On("tg.tag_id = t.tag_id").
 		Where("tg.group_id IN (" + groupIds + ")").
 		And("t.tag_lock = 1").String()
@@ -142,7 +142,7 @@ type TagGroup struct {
 func ShareTags(groupIds []uint64, tagId int64) bool {
 	o := orm.NewOrm()
 
-	r, _ := o.Raw("INSERT INTO sun_tag_group ( group_id, tag_id) value (?, ?)").Prepare()
+	r, _ := o.Raw("INSERT INTO shop_tag_group ( group_id, tag_id) value (?, ?)").Prepare()
 
 	for _, groupId := range groupIds {
 		_, err := r.Exec(groupId, tagId)
@@ -156,7 +156,7 @@ func ShareTags(groupIds []uint64, tagId int64) bool {
 
 func UnShareTags(groupIds []uint64, tagId int64) bool {
 	o := orm.NewOrm()
-	r, _ := o.Raw("DELETE FROM sun_tag_group WHERE group_id = ? AND tag_id = ?").Prepare()
+	r, _ := o.Raw("DELETE FROM shop_tag_group WHERE group_id = ? AND tag_id = ?").Prepare()
 
 	for _, groupId := range groupIds {
 		_, err := r.Exec(groupId, tagId)
@@ -175,9 +175,9 @@ func GetTagShare(groupId string, tagId string) ([]TagGroup, error) {
 	var sql string
 
 	if groupId == "" {
-		sql = "SELECT * FROM sun_tag_group WHERE tag_id IN (" + tagId + ")"
+		sql = "SELECT * FROM shop_tag_group WHERE tag_id IN (" + tagId + ")"
 	} else {
-		sql = "SELECT * FROM sun_tag_group WHERE group_id IN (" + groupId + ")"
+		sql = "SELECT * FROM shop_tag_group WHERE group_id IN (" + groupId + ")"
 	}
 
 	_, err := o.Raw(sql).QueryRows(&tags)
@@ -195,7 +195,7 @@ type TagRole struct {
 func RoleTags(roleId int64, tagIds []uint64) bool {
 	o := orm.NewOrm()
 
-	r, _ := o.Raw("INSERT INTO sun_tag_role ( role_id, tag_id) value (?, ?)").Prepare()
+	r, _ := o.Raw("INSERT INTO shop_tag_role ( role_id, tag_id) value (?, ?)").Prepare()
 
 	for _, tagId := range tagIds {
 		_, err := r.Exec(roleId, tagId)
@@ -209,7 +209,7 @@ func RoleTags(roleId int64, tagIds []uint64) bool {
 
 func RemoveRoleTags(roleId int64, tagIds []uint64) bool {
 	o := orm.NewOrm()
-	r, _ := o.Raw("DELETE FROM sun_tag_role WHERE role_id = ? AND tag_id = ?").Prepare()
+	r, _ := o.Raw("DELETE FROM shop_tag_role WHERE role_id = ? AND tag_id = ?").Prepare()
 
 	for _, tagId := range tagIds {
 		_, err := r.Exec(roleId, tagId)
@@ -228,9 +228,9 @@ func GetRoleTag(roleId string, tagId string) ([]TagRole, error) {
 	var sql string
 
 	if roleId == "" {
-		sql = "SELECT * FROM sun_tag_role WHERE tag_id IN (" + tagId + ")"
+		sql = "SELECT * FROM shop_tag_role WHERE tag_id IN (" + tagId + ")"
 	} else {
-		sql = "SELECT * FROM sun_tag_role WHERE role_id IN (" + roleId + ")"
+		sql = "SELECT * FROM shop_tag_role WHERE role_id IN (" + roleId + ")"
 	}
 
 	_, err := o.Raw(sql).QueryRows(&tags)

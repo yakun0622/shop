@@ -51,7 +51,7 @@ type SunRefundReturn struct {
 }
 
 func (t *SunRefundReturn) TableName() string {
-	return "sun_refund_return"
+	return "shop_refund_return"
 }
 
 func init() {

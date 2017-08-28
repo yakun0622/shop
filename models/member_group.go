@@ -46,13 +46,13 @@ type MemberGroup struct {
 }
 
 func (m *MemberGroup) TableName() string {
-	return "sun_member_group"
+	return "shop_member_group"
 }
 
 func ApplyJoinGroup(groupId uint64, memberId uint, applyTime uint) int64 {
 	o := Orm()
 
-	r, err := o.Raw("INSERT INTO sun_member_group (group_id, member_id, apply_time) VALUE (?, ?, ?)", groupId, memberId, applyTime).Exec()
+	r, err := o.Raw("INSERT INTO shop_member_group (group_id, member_id, apply_time) VALUE (?, ?, ?)", groupId, memberId, applyTime).Exec()
 
 	if err == nil {
 		if id, err := r.LastInsertId(); err == nil {
@@ -67,7 +67,7 @@ func ApplyJoinGroup(groupId uint64, memberId uint, applyTime uint) int64 {
 func ImportMemberGroup(groupId uint64, memberId uint, applyTime uint, status int, joinTime uint) int64 {
 	o := Orm()
 
-	r, err := o.Raw("INSERT INTO sun_member_group (group_id, member_id, apply_time, status, join_time) VALUE (?, ?, ?, ?, ?)", groupId, memberId, applyTime, status, joinTime).Exec()
+	r, err := o.Raw("INSERT INTO shop_member_group (group_id, member_id, apply_time, status, join_time) VALUE (?, ?, ?, ?, ?)", groupId, memberId, applyTime, status, joinTime).Exec()
 
 	if err == nil {
 		if id, err := r.LastInsertId(); err == nil {
@@ -88,15 +88,15 @@ func GetJoinGroup(memberId string, groupId string, status string) ([]MemberGroup
 	var joins []MemberGroup
 
 	q = q.Select("*").
-		From("sun_role as r").
-		RightJoin("sun_member_group as mg").On("mg.role_id = r.role_id")
+		From("shop_role as r").
+		RightJoin("shop_member_group as mg").On("mg.role_id = r.role_id")
 
 	if groupId != "" {
-		q = q.InnerJoin("sun_member as m").On("m.member_id = mg.member_id")
+		q = q.InnerJoin("shop_member as m").On("m.member_id = mg.member_id")
 	}
 
 	if memberId != "" {
-		q = q.InnerJoin("sun_group as g").On("g.group_id = mg.group_id")
+		q = q.InnerJoin("shop_group as g").On("g.group_id = mg.group_id")
 	}
 
 	if groupId != "" {
@@ -136,7 +136,7 @@ func PassJoinGroup(id int64, groupId int64, roleId int64, joinTime uint) bool {
 		status = 3
 	}
 
-	_, err := o.Raw("UPDATE sun_member_group SET group_id=?, role_id=?, join_time=?, start_time=?, status=? WHERE mg_id=?",
+	_, err := o.Raw("UPDATE shop_member_group SET group_id=?, role_id=?, join_time=?, start_time=?, status=? WHERE mg_id=?",
 		groupId, roleId, joinTime, startTime, status, id).Exec()
 
 	if err == nil {
@@ -148,7 +148,7 @@ func PassJoinGroup(id int64, groupId int64, roleId int64, joinTime uint) bool {
 func AddJoinGroupRole(id int64, roleId int64, groupId int64, startTime uint) bool {
 	o := Orm()
 
-	_, err := o.Raw("UPDATE sun_member_group SET role_id=?, group_id=?, start_time=?, status=3 WHERE mg_id=?",
+	_, err := o.Raw("UPDATE shop_member_group SET role_id=?, group_id=?, start_time=?, status=3 WHERE mg_id=?",
 		roleId, groupId, startTime, id).Exec()
 
 	if err == nil {
@@ -162,7 +162,7 @@ func ChangeJoinGroupRole(id int64, roleId int64, groupId int64, memberId int, ap
 
 	o.Begin()
 
-	r, rawErr := o.Raw("INSERT INTO sun_member_group (group_id, member_id, role_id, status, apply_time, join_time, start_time) VALUE (?, ?, ?, 3, ?, ?, ?)",
+	r, rawErr := o.Raw("INSERT INTO shop_member_group (group_id, member_id, role_id, status, apply_time, join_time, start_time) VALUE (?, ?, ?, 3, ?, ?, ?)",
 		groupId, memberId, roleId, applyTime, joinTime, time).Exec()
 
 	if rawErr == nil {
@@ -176,7 +176,7 @@ func ChangeJoinGroupRole(id int64, roleId int64, groupId int64, memberId int, ap
 		return
 	}
 
-	_, err = o.Raw("UPDATE sun_member_group SET status=4, leave_time=? WHERE mg_id=?",
+	_, err = o.Raw("UPDATE shop_member_group SET status=4, leave_time=? WHERE mg_id=?",
 		time, id).Exec()
 
 	if err != nil {
@@ -191,7 +191,7 @@ func ChangeJoinGroupRole(id int64, roleId int64, groupId int64, memberId int, ap
 func RemoveJoinGroupById(id int64, status int, leaveReason string, leaveTime uint) bool {
 	o := Orm()
 
-	_, err := o.Raw("UPDATE sun_member_group SET leave_time=?, status=?, leave_reason=? WHERE mg_id=?",
+	_, err := o.Raw("UPDATE shop_member_group SET leave_time=?, status=?, leave_reason=? WHERE mg_id=?",
 		leaveTime, status, leaveReason, id).Exec()
 
 	if err == nil {

@@ -26,10 +26,10 @@ type TransportExtend struct {
 	FreeLine       float64 `orm:"column(free_line);null;digits(10);decimals(2)"`
 }
 
-const TransportExtendTableName = "sun_transport_extend"
+const TransportExtendTableName = "shop_transport_extend"
 
 func (t *TransportExtend) TableName() string {
-	return "sun_transport_extend"
+	return "shop_transport_extend"
 }
 
 func init() {

@@ -16,7 +16,7 @@ type SunSpec struct {
 }
 
 func (t *SunSpec) TableName() string {
-	return "sun_spec"
+	return "shop_spec"
 }
 
 func init() {

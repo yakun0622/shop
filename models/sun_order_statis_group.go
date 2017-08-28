@@ -25,7 +25,7 @@ type SunOrderStatisGroup struct {
 }
 
 func (t *SunOrderStatisGroup) TableName() string {
-	return "sun_order_statis_group"
+	return "shop_order_statis_group"
 }
 
 func init() {

@@ -59,7 +59,7 @@ type SunMember struct {
 }
 
 func (t *SunMember) TableName() string {
-	return "sun_member"
+	return "shop_member"
 }
 
 func init() {
