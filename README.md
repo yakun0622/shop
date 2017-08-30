@@ -1,2 +1,2 @@
 # shop
-a shop written by golang
+a shop written by go
